@@ -7,6 +7,7 @@ from torch.utils.data import DataLoader, Dataset
 from models import InceptionV3_CBAM, Xception_ResNet50
 from dataset import BoneAgeDataset
 
+
 # Set device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -19,6 +20,7 @@ learning_rate = 0.001
 current_script_path = os.path.dirname(os.path.abspath(__file__))
 root_path = os.path.dirname(current_script_path)
 data_dir = os.path.join(root_path, "data")
+torch.hub.set_dir(os.path.join(data_dir, ".torch", "hub"))
 train_data = os.path.join(data_dir, "training")
 train_labels = os.path.join(data_dir, "boneage-training-dataset.csv")
 

@@ -8,3 +8,9 @@ fi
 virtualenv -p python3 venv
 source venv/bin/activate
 pip install -r requirements.txt
+
+
+# windows
+# python -m virtualenv -p python3 venv
+# .\venv\Scripts\activate
+# pip install -r requirements.txt

@@ -104,7 +104,7 @@ current_script_path = os.path.dirname(os.path.abspath(__file__))
 root_path = os.path.dirname(current_script_path)
 data_dir = os.path.join(root_path, "data")
 
-pretrained_settings['xception']['imagenet']['url'] = "file://" + os.path.join(data_dir, "xception-43020ad28.pth")
+# pretrained_settings['xception']['imagenet']['url'] = "file://" + os.path.join(data_dir, "xception-43020ad28.pth").replace("\\", "/")
 
 class Xception_ResNet50(nn.Module):
     def __init__(self):

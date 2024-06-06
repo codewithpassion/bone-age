@@ -4,6 +4,8 @@ from PIL import Image
 current_script_path = os.path.abspath(__file__)
 root_path = os.path.dirname(os.path.dirname(current_script_path))
 
+# input_dir = os.path.join(root_path, "data", "boneage-training-dataset", "boneage-training-dataset")
+# output_dir = os.path.join(root_path, "data", "training")
 input_dir = os.path.join(root_path, "data", "boneage-test-dataset", "boneage-test-dataset")
 output_dir = os.path.join(root_path, "data", "test")
 target_size = 300
