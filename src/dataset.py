@@ -12,8 +12,10 @@ class BoneAgeDataset(Dataset):
         self.labels = self._load_labels()
         
         # Get list of image filenames
+        
         # self.image_filenames = os.listdir(data_dir)[:5000]
-        self.image_filenames = os.listdir(data_dir)[5001:5200]
+        # self.image_filenames = os.listdir(data_dir)[5001:5200]
+        self.image_filenames = os.listdir(data_dir)
     
     def __len__(self):
         return len(self.image_filenames)
