@@ -11,9 +11,14 @@ root_path = os.path.dirname(current_script_path)
 data_dir = os.path.join(root_path, "data")
 test_data = os.path.join(data_dir, "test")
 test_labels = os.path.join(data_dir, "boneage-test-dataset.csv")
-model_dir = os.path.join(data_dir, "5000")
+# model_dir = os.path.join(data_dir, "5000")
+model_dir = data_dir
+
+torch.hub.set_dir(os.path.join(data_dir, ".torch", "hub"))
+
 
 train_data = os.path.join(data_dir, "training")
+validation_data = os.path.join(data_dir, "validation")
 train_labels = os.path.join(data_dir, "boneage-training-dataset.csv")
 
 
@@ -36,9 +41,8 @@ test_transform = transforms.Compose([
 ])
 
 # Create the test dataset and data loader
-# test_dataset = BoneAgeDataset(test_data, test_labels, test_transform)
-test_dataset = BoneAgeDataset(train_data, train_labels, test_transform)
-test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
+validation_dataset = BoneAgeDataset(validation_data, train_labels, test_transform)
+test_loader = DataLoader(validation_dataset, batch_size=1, shuffle=False)
 
 # Load the trained models
 region_model = InceptionV3_CBAM(num_classes=2)
@@ -50,6 +54,10 @@ age_model = Xception_ResNet50()
 age_model.load_state_dict(torch.load(age_model_path))
 age_model.to(device)
 age_model.eval()
+
+# Create validation.csv file
+validation_file = open(os.path.join(data_dir, "validation.csv"), 'w')
+validation_file.write("Image,Estimated Age,Actual Age,Delta\n")
 
 # Iterate over the test data
 with torch.no_grad():
@@ -75,3 +83,6 @@ with torch.no_grad():
         
         # Output the image name and estimated bone age
         print(f"Image: {image_name}, Estimated Bone Age: {estimated_age:.2f} months - actual age: {age:.2f} months - delta: {abs(estimated_age - age):.2f} months")
+        validation_file.write(f"{image_name},{estimated_age:.2f},{age:.2f},{abs(estimated_age - age):.2f}\n")
+        
+validation_file.close()

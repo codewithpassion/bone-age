@@ -21,6 +21,7 @@ current_script_path = os.path.dirname(os.path.abspath(__file__))
 root_path = os.path.dirname(current_script_path)
 data_dir = os.path.join(root_path, "data")
 torch.hub.set_dir(os.path.join(data_dir, ".torch", "hub"))
+
 train_data = os.path.join(data_dir, "training")
 train_labels = os.path.join(data_dir, "boneage-training-dataset.csv")
 
